@@ -1,0 +1,36 @@
+/* Markdown Content Styling */
+.markdown-content p {
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+}
+.markdown-content p:last-child {
+  margin-bottom: 0;
+}
+.markdown-content ul, .markdown-content ol {
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+  padding-left: var(--space-4);
+}
+.markdown-content table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: var(--space-2) 0;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+.markdown-content th, .markdown-content td {
+  border: 1px solid var(--color-border);
+  padding: 6px 8px;
+  text-align: left;
+}
+.markdown-content th {
+  background: var(--color-bg);
+  font-weight: 600;
+}
+.markdown-content strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
