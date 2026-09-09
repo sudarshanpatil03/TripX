@@ -434,7 +434,6 @@ export function TripProvider({ children }) {
       title: activityData.title,
       activity_date: activityData.date,
       start_time: activityData.startTime || null,
-      notes: activityData.notes || null,
     };
     const { error } = await supabase.from('itinerary_activities').insert(payload);
     if (error) throw error;
@@ -450,7 +449,6 @@ export function TripProvider({ children }) {
       title: activityData.title,
       activity_date: activityData.date,
       start_time: activityData.startTime || null,
-      notes: activityData.notes || null
     }).eq('id', activityId);
     if (error) throw error;
     await loadTrips();
