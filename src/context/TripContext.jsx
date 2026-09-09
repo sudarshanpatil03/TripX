@@ -429,16 +429,19 @@ export function TripProvider({ children }) {
 
   const addItineraryActivity = async (tripId, activityData) => {
     if (!user) return;
-    const { error } = await supabase.from('itinerary_activities').insert({
+    const payload = {
       trip_id: tripId,
       title: activityData.title,
       activity_date: activityData.date,
       start_time: activityData.startTime || null,
       location: activityData.location || null,
       notes: activityData.notes || null,
-      created_by: user.id
-    });
-    if (error) throw error;
+    };
+    const { data, error } = await supabase.from('itinerary_activities').insert(payload).select();
+    if (error) {
+      console.error('[addItineraryActivity] Supabase error:', error);
+      throw error;
+    }
     await supabase.from('activity_history').insert({
       trip_id: tripId, user_id: user.id, action_description: `added "${activityData.title}" to the itinerary`
     });
