@@ -427,13 +427,22 @@ export function TripProvider({ children }) {
     await loadTrips();
   };
 
-  const addItineraryActivity = async (tripId, activityData) => {
+  const addItineraryActivity = async (tripId, tripStartDate, activityData) => {
     if (!user) return;
+    // Calculate day_number from trip start date (required, non-nullable)
+    const start = new Date(tripStartDate);
+    const actDate = new Date(activityData.date);
+    const dayNumber = Math.max(1, Math.round((actDate - start) / (1000 * 60 * 60 * 24)) + 1);
     const payload = {
       trip_id: tripId,
       title: activityData.title,
+      type: activityData.type || 'activity',
+      day_number: dayNumber,
       activity_date: activityData.date,
-      start_time: activityData.startTime || null,
+      activity_time: activityData.activityTime || null,
+      duration: activityData.duration || null,
+      cost: activityData.cost ? Number(activityData.cost) : null,
+      note: activityData.note || null,
     };
     const { error } = await supabase.from('itinerary_activities').insert(payload);
     if (error) throw error;
@@ -443,12 +452,20 @@ export function TripProvider({ children }) {
     await loadTrips();
   };
 
-  const updateItineraryActivity = async (activityId, activityData, tripId) => {
+  const updateItineraryActivity = async (activityId, activityData, tripId, tripStartDate) => {
     if (!user) return;
+    const start = new Date(tripStartDate);
+    const actDate = new Date(activityData.date);
+    const dayNumber = Math.max(1, Math.round((actDate - start) / (1000 * 60 * 60 * 24)) + 1);
     const { error } = await supabase.from('itinerary_activities').update({
       title: activityData.title,
+      type: activityData.type || 'activity',
+      day_number: dayNumber,
       activity_date: activityData.date,
-      start_time: activityData.startTime || null,
+      activity_time: activityData.activityTime || null,
+      duration: activityData.duration || null,
+      cost: activityData.cost ? Number(activityData.cost) : null,
+      note: activityData.note || null,
     }).eq('id', activityId);
     if (error) throw error;
     await loadTrips();
