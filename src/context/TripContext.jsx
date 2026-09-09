@@ -434,14 +434,10 @@ export function TripProvider({ children }) {
       title: activityData.title,
       activity_date: activityData.date,
       start_time: activityData.startTime || null,
-      location: activityData.location || null,
       notes: activityData.notes || null,
     };
-    const { data, error } = await supabase.from('itinerary_activities').insert(payload).select();
-    if (error) {
-      console.error('[addItineraryActivity] Supabase error:', error);
-      throw error;
-    }
+    const { error } = await supabase.from('itinerary_activities').insert(payload);
+    if (error) throw error;
     await supabase.from('activity_history').insert({
       trip_id: tripId, user_id: user.id, action_description: `added "${activityData.title}" to the itinerary`
     });
@@ -454,7 +450,6 @@ export function TripProvider({ children }) {
       title: activityData.title,
       activity_date: activityData.date,
       start_time: activityData.startTime || null,
-      location: activityData.location || null,
       notes: activityData.notes || null
     }).eq('id', activityId);
     if (error) throw error;

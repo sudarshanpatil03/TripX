@@ -110,7 +110,6 @@ export default function Itinerary() {
                 <div style={{ flex: 1 }}><AnimatedInput label="Date" type="date" value={form.date} onChange={v => updateField('date', v)} /></div>
                 <div style={{ flex: 1 }}><AnimatedInput label="Time" type="time" value={form.startTime} onChange={v => updateField('startTime', v)} /></div>
               </div>
-              <AnimatedInput label="Location" value={form.location} onChange={v => updateField('location', v)} icon={<MapPin size={18} />} placeholder="Optional" />
               <AnimatedInput label="Notes" multiline value={form.notes} onChange={v => updateField('notes', v)} placeholder="Optional details..." />
               
               <AnimatedButton variant="primary" onClick={handleSave} loading={saving}>Save Activity</AnimatedButton>
