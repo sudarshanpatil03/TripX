@@ -102,12 +102,9 @@ export default function Profile() {
       </motion.header>
 
       <main style={{ padding: 'var(--space-6)', maxWidth: 600, margin: '0 auto' }}>
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          animate="animate"
-          style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}
-        >
+        <motion.div variants={staggerContainer} initial="initial" animate="animate" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+          {/* Premium profile bento — NEW */}
+          <motion.div variants={fadeInUp} style={{ background:'var(--gradient-primary)', borderRadius:'var(--radius-2xl)', padding:'var(--space-5)', color:'white', position:'relative', overflow:'hidden' }}><div style={{ position:'absolute', inset:0, background:'radial-gradient(circle at 90% 10%, rgba(255,255,255,0.22), transparent 50%)' }} /><div style={{ position:'relative', display:'flex', alignItems:'center', gap:'var(--space-4)' }}><div style={{ width:48, height:48, borderRadius:'var(--radius-lg)', background:'rgba(255,255,255,0.18)', display:'flex', alignItems:'center', justifyContent:'center', backdropFilter:'blur(8px)' }}>✦</div><div><div style={{ fontWeight:800, fontSize:'var(--font-size-lg)', fontFamily:'var(--font-display)' }}>Your TripX Identity</div><div style={{ opacity:0.9, fontSize:'var(--font-size-sm)' }}>Update photo, sync across trips • Premium glass edition</div></div></div></motion.div>
           {/* Avatar Section */}
           <motion.div variants={fadeInUp} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-4)' }}>
             <div style={{ position: 'relative' }}>

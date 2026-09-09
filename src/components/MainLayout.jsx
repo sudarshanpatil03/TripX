@@ -31,23 +31,8 @@ export default function MainLayout() {
         <Outlet />
       </div>
 
-      {/* Bottom Navigation Bar */}
-      <nav style={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        background: 'var(--glass-bg)',
-        backdropFilter: 'blur(var(--glass-blur))',
-        WebkitBackdropFilter: 'blur(var(--glass-blur))',
-        borderTop: '1px solid var(--glass-border)',
-        display: 'flex',
-        justifyContent: 'space-around',
-        padding: 'var(--space-2) var(--space-4)',
-        paddingBottom: 'calc(var(--space-2) + env(safe-area-inset-bottom))',
-        zIndex: 100,
-        boxShadow: '0 -4px 12px rgba(0,0,0,0.05)',
-      }}>
+      {/* Bottom Navigation — premium glass + glow */}
+      <nav style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'var(--glass-bg)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderTop: '1px solid var(--glass-border)', display: 'flex', justifyContent: 'space-around', padding: 'var(--space-2) var(--space-4)', paddingBottom: 'calc(var(--space-2) + env(safe-area-inset-bottom))', zIndex: 100, boxShadow: '0 -12px 32px rgba(0,0,0,0.08)' }}>
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (

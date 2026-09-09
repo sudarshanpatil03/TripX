@@ -40,8 +40,8 @@ export default function CreateTrip() {
   };
 
   return (
-    <div style={{ padding: 'var(--space-4)', paddingBottom: 'calc(var(--nav-height) + var(--space-6))' }}>
-      <header style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-6)' }}>
+    <div className="page-content" style={{ maxWidth: 640, margin: '0 auto', width:'100%' }}>
+      <header style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', marginBottom: 'var(--space-6)', flexWrap:'wrap' }}>
         <button onClick={() => navigate(-1)} className="header__back">
           <ArrowLeft size={20} />
         </button>
@@ -61,9 +61,10 @@ export default function CreateTrip() {
         variants={fadeInUp}
         style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}
       >
+        <motion.div initial={{ opacity:0, y:8 }} animate={{ opacity:1, y:0 }} style={{ background:'var(--color-primary-bg)', border:'1px solid rgba(124,58,237,0.15)', borderRadius:'var(--radius-xl)', padding:'var(--space-4)', display:'flex', alignItems:'center', gap:'var(--space-3)' }}><div style={{ width:36, height:36, borderRadius:'var(--radius-md)', background:'var(--gradient-primary)', display:'flex', alignItems:'center', justifyContent:'center', color:'white' }}>✦</div><div><div style={{ fontWeight:800, fontSize:'var(--font-size-sm)' }}>Make it memorable</div><div style={{ fontSize:'var(--font-size-xs)', color:'var(--color-text-secondary)' }}>Add a name, pick a vibe — TripX will auto-find a cover.</div></div></motion.div>
         <AnimatedInput 
           label="Trip Name (Optional)" 
-          placeholder="e.g. Goa Trip" 
+          placeholder="e.g. Goa Trip — Sunset in Udaipur" 
           value={formData.name} 
           onChange={(val) => setFormData({...formData, name: val})} 
         />
@@ -97,7 +98,7 @@ export default function CreateTrip() {
           required 
         />
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-3)' }}>
+        <div className="form-grid-2">
           <AnimatedInput 
             label="Start Date" 
             type="date"
@@ -125,9 +126,10 @@ export default function CreateTrip() {
           prefix={<Wallet size={16} />}
         />
 
-        <AnimatedButton type="submit" fullWidth disabled={loading} style={{ marginTop: 'var(--space-2)' }}>
-          {loading ? 'Creating Trip & Finding Images...' : 'Create Trip'}
-        </AnimatedButton>
+        <motion.div whileHover={{ scale:1.01 }} whileTap={{ scale:0.99 }}><AnimatedButton type="submit" fullWidth disabled={loading} style={{ marginTop: 'var(--space-2)', background:'var(--gradient-primary)', color:'white', border:'none', fontWeight:800, boxShadow:'var(--shadow-glow-primary)' }}>
+          {loading ? 'Creating Trip & Finding Images…' : '✨ Create Trip'}
+        </AnimatedButton></motion.div>
+        <p style={{ textAlign:'center', fontSize:'var(--font-size-xs)', color:'var(--color-text-muted)', marginTop:6 }}>Tip: Add budget to track spend vs plan on Overview.</p>
       </motion.form>
     </div>
   );

@@ -48,19 +48,8 @@ export default function TripOverview() {
   return (
     <div className="page-content" style={{ padding: 'var(--space-4)' }}>
       
-      {/* Cover Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        style={{
-          borderRadius: 'var(--radius-2xl)',
-          overflow: 'hidden',
-          position: 'relative',
-          height: 180,
-          marginBottom: 'var(--space-6)',
-          boxShadow: 'var(--shadow-md)'
-        }}
-      >
+      {/* Cover Card — premium shimmer + glass badge */}
+      <motion.div className="shimmer-card glow-hover" whileHover={{ y:-4 }} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ borderRadius: 'var(--radius-2xl)', overflow: 'hidden', position: 'relative', height: 190, marginBottom: 'var(--space-6)', boxShadow: 'var(--shadow-lg)', border:'1px solid var(--glass-border)' }}>
         <img src={trip.cover_image_url || '/images/kashi.png'} alt={trip.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%)' }} />
         
@@ -89,28 +78,18 @@ export default function TripOverview() {
         </div>
       </motion.div>
 
-      {/* Stats Row */}
-      <motion.div variants={fadeInUp} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'var(--space-6)', padding: '0 var(--space-2)' }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-sm)', marginBottom: 4 }}>
-            <Users size={14} /> Members
-          </div>
-          <div style={{ fontWeight: 700, fontSize: 'var(--font-size-md)' }}>{stats.memberCount}</div>
-        </div>
-        <div style={{ width: 1, background: 'var(--color-border)' }} />
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-sm)', marginBottom: 4 }}>
-            Budget
-          </div>
-          <div style={{ fontWeight: 700, fontSize: 'var(--font-size-md)' }}>₹{trip.estimated_budget || '0'}</div>
-        </div>
-        <div style={{ width: 1, background: 'var(--color-border)' }} />
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-sm)', marginBottom: 4 }}>
-            Spent
-          </div>
-          <div style={{ fontWeight: 700, fontSize: 'var(--font-size-md)', color: 'var(--color-text)' }}>₹{stats.totalExpense}</div>
-        </div>
+      {/* Quick Actions — NEW FEATURE */}
+      <motion.div variants={fadeInUp} style={{ display:'flex', gap:8, marginBottom:'var(--space-5)', overflowX:'auto', scrollbarWidth:'none' }}>
+        <button onClick={()=>navigate(`/trip/${trip.id}/expenses/add`)} style={{ flex:'0 0 auto', display:'flex', alignItems:'center', gap:6, padding:'10px 14px', borderRadius:'var(--radius-full)', background:'var(--gradient-primary)', color:'white', fontWeight:800, fontSize:'var(--font-size-sm)', boxShadow:'var(--shadow-glow-primary)' }}><Wallet size={14} /> Add Expense</button>
+        <button onClick={()=>navigate(`/trip/${trip.id}/itinerary`)} style={{ flex:'0 0 auto', padding:'10px 14px', borderRadius:'var(--radius-full)', background:'var(--color-surface)', border:'1px solid var(--color-border)', fontWeight:700, fontSize:'var(--font-size-sm)' }}><Calendar size={14} style={{ marginRight:6 }} /> Itinerary</button>
+        <button onClick={()=>navigate(`/trip/${trip.id}/members`)} style={{ flex:'0 0 auto', padding:'10px 14px', borderRadius:'var(--radius-full)', background:'var(--color-surface)', border:'1px solid var(--color-border)', fontWeight:700, fontSize:'var(--font-size-sm)' }}><Users size={14} style={{ marginRight:6 }} /> Members</button>
+      </motion.div>
+
+      {/* Stats Bento — UPGRADED */}
+      <motion.div variants={fadeInUp} className="bento-grid" style={{ marginBottom: 'var(--space-6)' }}>
+        <div className="stat-bento" style={{ textAlign:'center' }}><div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:6, color:'var(--color-primary)', fontSize:'var(--font-size-xs)', fontWeight:700, letterSpacing:'0.04em', textTransform:'uppercase' }}><Users size={14} /> Members</div><div style={{ fontWeight:800, fontSize:'1.4rem', marginTop:6 }}>{stats.memberCount}</div></div>
+        <div className="stat-bento" style={{ textAlign:'center' }}><div style={{ color:'var(--color-text-secondary)', fontSize:'var(--font-size-xs)', fontWeight:700, letterSpacing:'0.04em', textTransform:'uppercase' }}>Budget</div><div style={{ fontWeight:800, fontSize:'1.2rem', marginTop:6 }}>₹{Number(trip.estimated_budget||0).toLocaleString('en-IN')}</div></div>
+        <div className="stat-bento" style={{ textAlign:'center', gridColumn:'span 2' }}><div style={{ color:'var(--color-text-secondary)', fontSize:'var(--font-size-xs)', fontWeight:700, letterSpacing:'0.04em', textTransform:'uppercase' }}>Spent • Progress</div><div style={{ fontWeight:800, fontSize:'1.2rem', marginTop:6 }}>₹{Number(stats.totalExpense||0).toLocaleString('en-IN')}</div><div style={{ height:6, background:'var(--color-border)', borderRadius:999, marginTop:8, overflow:'hidden' }}><motion.div initial={{ width:0 }} animate={{ width: `${Math.min(100, trip.estimated_budget ? (stats.totalExpense/Number(trip.estimated_budget))*100 : 55)}%` }} transition={{ duration:0.8 }} style={{ height:'100%', background:'var(--gradient-primary)' }} /></div></div>
       </motion.div>
 
       {/* My Summary */}
@@ -194,7 +173,7 @@ export default function TripOverview() {
       </motion.div>
 
       {/* Today's Plan */}
-      <motion.div variants={fadeInUp} style={{ marginBottom: 'var(--space-6)' }}>
+      <motion.div className="todays-plan" variants={fadeInUp} style={{ marginBottom: 'var(--space-6)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-3)' }}>
           <h3 style={{ fontSize: 'var(--font-size-md)', fontWeight: 700 }}>Today's Plan</h3>
           <span onClick={() => navigate(`/trip/${trip.id}/itinerary`)} style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-xs)', cursor: 'pointer' }}><ChevronRight size={16} /></span>

@@ -71,13 +71,8 @@ export default function TripWorkspaceLayout() {
       </div>
 
       <div className="main-content">
-        {/* Trip Header */}
-        <motion.header
-          className="header"
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
+        {/* Trip Header — premium glass + progress */}
+        <motion.header className="header" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.35 }} style={{ backdropFilter:'blur(18px)', WebkitBackdropFilter:'blur(18px)', borderBottom:'1px solid var(--glass-border)', background:'var(--glass-bg)' }}>
           <motion.button
             className="header__back"
             onClick={handleBack}
@@ -104,8 +99,8 @@ export default function TripWorkspaceLayout() {
         </main>
       </div>
 
-      {/* Trip Bottom Nav */}
-      <nav className="main-nav" style={{ overflow: 'visible' }}>
+      {/* Trip Bottom Nav — premium glass + glow */}
+      <nav className="main-nav" style={{ overflow: 'visible', background:'var(--glass-bg)', backdropFilter:'blur(20px)', WebkitBackdropFilter:'blur(20px)', borderTop:'1px solid var(--glass-border)', boxShadow:'0 -8px 32px rgba(0,0,0,0.08)' }}>
         <div className="main-nav__list" style={{ position: 'relative' }}>
           {tripTabs.map((tab, idx) => {
 

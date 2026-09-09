@@ -1,0 +1,86 @@
+/* responsive.css – Responsive adjustments for mobile, tablet, and desktop */
+
+/* todays-plan mobile spacing */
+@media (max-width: 767px) {
+  .todays-plan {
+    margin-top: var(--space-6);
+    /* Ensure it appears below sticky header */
+    position: relative;
+    z-index: var(--z-base);
+  }
+}
+
+/* todays-plan spacing */
+.todays-plan {
+  margin-top: var(--space-4);
+  /* Ensure it sits below header and nav */
+}
+
+
+/* Adjust root font size for fluid scaling */
+html {
+  font-size: clamp(14px, 1vw, 18px);
+}
+
+/* Header adjustments on small screens */
+@media (max-width: 767px) {
+  .header {
+    padding: var(--space-3) var(--space-4);
+  }
+  .header__title {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* Page content padding */
+@media (max-width: 767px) {
+  .page-content {
+    padding: var(--space-4);
+  }
+}
+
+/* Button size adjustments */
+@media (max-width: 767px) {
+  .btn {
+    font-size: var(--font-size-sm);
+    padding: var(--space-2) var(--space-4);
+  }
+  .btn--lg {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-base);
+  }
+}
+
+/* Card layout adjustments */
+@media (max-width: 767px) {
+  .card {
+    padding: var(--space-3);
+  }
+}
+
+/* Ensure images are fluid */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Navigation adjustments for tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .main-nav {
+    width: 70px;
+  }
+  .main-nav__list {
+    gap: var(--space-4);
+  }
+}
+
+/* Reduce padding on forms for mobile */
+@media (max-width: 767px) {
+  .form-group {
+    margin-bottom: var(--space-4);
+  }
+  .form-input, .select-trigger {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+}
